@@ -1,17 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import { ColorModeScript, ChakraProvider, theme } from '@chakra-ui/react';
+import React, { StrictMode } from 'react';
+import * as ReactDOM from 'react-dom/client';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ColorModeSwitcher from './ColorModeSwitcher';
+import { Auth0Provider } from '@auth0/auth0-react';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <StrictMode>
+    <Auth0Provider
+      domain="dev-ifrv33pwv60siot1.us.auth0.com"
+      clientId="LR6WdDfYjzkiaMpmJpnbQnY8PH2itm0K"
+      redirectUri={window.location.origin}
+    >
+      <ColorModeScript />
+      <ChakraProvider theme={theme}>
+        <ColorModeSwitcher />
+        <App />
+      </ChakraProvider>
+    </Auth0Provider>
+  </StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
